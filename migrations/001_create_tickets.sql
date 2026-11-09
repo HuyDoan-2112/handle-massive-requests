@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS tickets (
                                      CHECK (status IN ('available', 'reserved', 'sold', 'cancelled')),
     departure_location text          NOT NULL,
     destination        text          NOT NULL,
-    price              numeric(12,2) NOT NULL CHECK (price >= 0),
+    price_cents        bigint        NOT NULL CHECK (price_cents >= 0),
     ticket_type        text          NOT NULL
                                      CHECK (ticket_type IN ('BasicEconomy', 'Economy', 'PremiumEconomy', 'Business', 'First')),
     time_start         timestamptz   NOT NULL,

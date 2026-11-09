@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package ticket.v1;
+
+import "google/protobuf/timestamp.proto";
+
+service TicketService {
+  rpc CreateTicket(CreateTicketRequest) returns (CreateTicketResponse);
+  rpc GetTicket(GetTicketRequest) returns (GetTicketResponse);
+  rpc ListTickets(ListTicketsRequest) returns (ListTicketsResponse);
+  rpc UpdateTicketStatus(UpdateTicketStatusRequest) returns (UpdateTicketStatusResponse);
+  rpc DeleteTicket(DeleteTicketRequest) returns (DeleteTicketResponse);
+}
+
+enum TicketStatus {
+  TICKET_STATUS_UNSPECIFIED = 0;
+  TICKET_STATUS_AVAILABLE = 1;
+  TICKET_STATUS_RESERVED = 2;
+  TICKET_STATUS_SOLD = 3;
+  TICKET_STATUS_CANCELLED = 4;
+}
+
+enum TicketType {
+  TICKET_TYPE_UNSPECIFIED = 0;
+  TICKET_TYPE_BASIC_ECONOMY = 1;
+  TICKET_TYPE_ECONOMY = 2;
+  TICKET_TYPE_PREMIUM_ECONOMY = 3;
+  TICKET_TYPE_BUSINESS = 4;
+  TICKET_TYPE_FIRST = 5;
+}
+
+message Ticket {
+  string id = 1;
+  string name = 2;
+  TicketStatus status = 3;
+  string departure_location = 4;
+  string destination = 5;
+  // Money as integer minor units (cents) - never float.
+  int64 price_cents = 6;
+  TicketType ticket_type = 7;
+  google.protobuf.Timestamp time_start = 8;
+  google.protobuf.Timestamp time_end = 9;
+  google.protobuf.Timestamp create_time = 10;
+  google.protobuf.Timestamp update_time = 11;
+}
+
+message CreateTicketRequest {
+  string name = 1;
+  string departure_location = 2;
+  string destination = 3;
+  int64 price_cents = 4;
+  TicketType ticket_type = 5;
+  google.protobuf.Timestamp time_start = 6;
+  google.protobuf.Timestamp time_end = 7;
+}
+
+message CreateTicketResponse {
+  Ticket ticket = 1;
+}
+
+message GetTicketRequest {
+  string id = 1;
+}
+
+message GetTicketResponse {
+  Ticket ticket = 1;
+}
+
+// Search by route, optionally within a departure time window.
+// Uses the idx_tickets_route_time index.
+message ListTicketsRequest {
+  string departure_location = 1;
+  string destination = 2;
+  google.protobuf.Timestamp time_start_from = 3;
+  google.protobuf.Timestamp time_start_to = 4;
+  int32 page_size = 5; // default 50, max 500
+  string page_token = 6; // from previous response's next_page_token
+}
+
+message ListTicketsResponse {
+  repeated Ticket tickets = 1;
+  string next_page_token = 2; // empty when there are no more pages
+}
+
+message UpdateTicketStatusRequest {
+  string id = 1;
+  TicketStatus status = 2;
+}
+
+message UpdateTicketStatusResponse {
+  Ticket ticket = 1;
+}
+
+message DeleteTicketRequest {
+  string id = 1;
+}
+
+message DeleteTicketResponse {}

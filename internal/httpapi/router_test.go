@@ -33,7 +33,3 @@ func TestHealthCheck(t *testing.T) {
 		t.Fatalf(`body["status"] = %q, want "ok"`, body["status"])
 	}
 }
-
-func TestGetHandler(t *testing.T) {
-	t.Skip("TODO: write once the GET /tickets handler exists")
-}

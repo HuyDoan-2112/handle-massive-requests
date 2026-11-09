@@ -1,4 +1,4 @@
-.PHONY: run test fmt tidy up down reset db-tables
+.PHONY: run test fmt tidy up down reset db-tables tools proto
 
 run:
 	go run ./cmd/api
@@ -26,3 +26,15 @@ reset:
 # List tables in the running database.
 db-tables:
 	docker exec -it postgres psql -U app -d train -c '\dt'
+
+# One-time: install the proto toolchain into $(go env GOPATH)/bin.
+tools:
+	go install github.com/bufbuild/buf/cmd/buf@v1.47.2
+	go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
+	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
+	go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+
+# Regenerate gen/ from proto/. Run after every .proto change.
+proto:
+	buf lint
+	buf generate

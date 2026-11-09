@@ -9,10 +9,12 @@ type Config struct {
 	PostgresURL string `mapstructure:"POSTGRES_URL"`
 	GinMode     string `mapstructure:"GIN_MODE"`
 	Port        string `mapstructure:"PORT"`
+	GRPCPort    string `mapstructure:"GRPC_PORT"`
 }
 
 func LoadConfig() (*Config, error) {
 	viper.SetConfigFile(".env")
+	viper.SetDefault("GRPC_PORT", "9090")
 	err := viper.ReadInConfig()
 	if err != nil {
 		return nil, fmt.Errorf("failed to read config file: %w", err)
@@ -22,5 +24,6 @@ func LoadConfig() (*Config, error) {
 		PostgresURL: viper.GetString("POSTGRES_URL"),
 		GinMode:     viper.GetString("GIN_MODE"),
 		Port:        viper.GetString("PORT"),
+		GRPCPort:    viper.GetString("GRPC_PORT"),
 	}, nil
 }
