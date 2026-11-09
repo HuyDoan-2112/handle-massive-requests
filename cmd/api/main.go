@@ -3,24 +3,31 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-
+	"github.com/HuyDoan-2112/cdc-cache-invalidation/internal/config"
 	"github.com/HuyDoan-2112/cdc-cache-invalidation/internal/httpapi"
+	"github.com/HuyDoan-2112/cdc-cache-invalidation/internal/db"
 )
 
 func main() {
-	addr := os.Getenv("ADDR")
-	if addr == "" {
-		addr = ":8080"
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		log.Fatalf("failed to load config: %v", err)
 	}
+	conn, err := db.NewDB(cfg.PostgresURL)
+	if err != nil {
+		log.Fatalf("failed to connect to database: %v", err)
+	}
+	defer conn.Close(context.Background())
 
 	srv := &http.Server{
-		Addr:              addr,
+		Addr:              fmt.Sprintf(":%s", cfg.Port),
 		Handler:           httpapi.SetupRouter(),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
@@ -29,7 +36,7 @@ func main() {
 	defer stop()
 
 	go func() {
-		log.Printf("listening on %s", addr)
+		log.Printf("listening on %s", cfg.Port)
 		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("server: %v", err)
 		}
