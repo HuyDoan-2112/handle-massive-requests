@@ -6,7 +6,6 @@ import (
 	"github.com/google/uuid"
 )
 
-
 type Type string
 
 const (
@@ -16,7 +15,6 @@ const (
 	TypeBusiness       Type = "Business"
 	TypeFirst          Type = "First"
 )
-
 
 type Ticket struct {
 	ID                uuid.UUID `json:"id"`

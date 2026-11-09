@@ -4,15 +4,15 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/HuyDoan-2112/cdc-cache-invalidation/internal/config"
+	"github.com/HuyDoan-2112/cdc-cache-invalidation/internal/db"
+	"github.com/HuyDoan-2112/cdc-cache-invalidation/internal/httpapi"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-	"github.com/HuyDoan-2112/cdc-cache-invalidation/internal/config"
-	"github.com/HuyDoan-2112/cdc-cache-invalidation/internal/httpapi"
-	"github.com/HuyDoan-2112/cdc-cache-invalidation/internal/db"
 )
 
 func main() {
