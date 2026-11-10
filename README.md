@@ -8,7 +8,7 @@
 
 ```
 cmd/api/            entrypoint (main.go): starts the gRPC server
-internal/bootstrap/ constructs dependencies and registers gRPC services
+internal/bootstrap/ Fx dependency injection, gRPC registration, and lifecycle hooks
 proto/ticket/v1/    gRPC API contract (ticket.proto)
 gen/                generated Go code from proto/ - do not edit, run `make proto`
 internal/grpcapi/   gRPC TicketService implementation (and its tests)
@@ -26,7 +26,9 @@ Ticket requests follow `gRPC handler → ticket.Service → ticket.Repository �
 - `internal/ticket/repository_test.go`: PostgreSQL integration tests, including competing reservations. Each test creates and removes its own schema.
 - `internal/db/db_test.go`: pool error handling tests and a PostgreSQL integration test for connecting, querying, and closing the pool.
 
-The gRPC handlers keep protobuf conversion, UUID parsing, page tokens, and gRPC error mapping. Their application interface lives in `internal/grpcapi/ticket_service.go`. `internal/bootstrap/grpc.go` connects the repository to the service and the service to the handlers, then registers ticket, health, and reflection services. `cmd/api/main.go` handles configuration, database setup, listening, and shutdown.
+The gRPC handlers keep protobuf conversion, UUID parsing, page tokens, and gRPC error mapping. Their application interface lives in `internal/grpcapi/ticket_service.go`. `internal/bootstrap/module.go` declares the constructors Fx uses to build the repository, service, and handler. `internal/bootstrap/grpc.go` registers ticket, health, and reflection services and defines server lifecycle hooks. `cmd/api/main.go` starts the Fx application.
+
+Fx handles process signals, startup errors, and shutdown. Startup verifies PostgreSQL before accepting gRPC connections. Shutdown drains active RPCs before closing the database pool, with forced gRPC shutdown if Fx's stop context expires. The application uses Fx's default startup and shutdown timeouts (15 seconds).
 
 ## How to run
 
