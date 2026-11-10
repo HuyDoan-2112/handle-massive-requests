@@ -23,6 +23,7 @@ Ticket requests follow `gRPC handler → ticket.Service → ticket.Repository �
 - `internal/ticket/repository.go`: parameterized SQL and database error handling. Status changes check and update the current status in one SQL statement.
 - `internal/ticket/service_test.go`: service validation and storage error tests, without PostgreSQL.
 - `internal/ticket/repository_test.go`: PostgreSQL integration tests, including competing reservations. Each test creates and removes its own schema.
+- `internal/db/db_test.go`: pool error handling tests and a PostgreSQL integration test for connecting, querying, and closing the pool.
 
 The gRPC handlers keep protobuf conversion, UUID parsing, page tokens, and gRPC error mapping. `cmd/api/main.go` connects the repository to the service and the service to the handlers.
 

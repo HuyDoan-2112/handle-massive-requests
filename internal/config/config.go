@@ -1,7 +1,10 @@
 package config
 
 import (
+	"errors"
 	"fmt"
+	"strings"
+
 	"github.com/spf13/viper"
 )
 
@@ -11,15 +14,20 @@ type Config struct {
 }
 
 func LoadConfig() (*Config, error) {
-	viper.SetConfigFile(".env")
-	viper.SetDefault("GRPC_PORT", "9090")
-	err := viper.ReadInConfig()
+	v := viper.New()
+	v.SetConfigFile(".env")
+	v.SetDefault("GRPC_PORT", "9090")
+	err := v.ReadInConfig()
 	if err != nil {
 		return nil, fmt.Errorf("failed to read config file: %w", err)
 	}
 
-	return &Config{
-		PostgresURL: viper.GetString("POSTGRES_URL"),
-		GRPCPort:    viper.GetString("GRPC_PORT"),
-	}, nil
+	cfg := &Config{
+		PostgresURL: v.GetString("POSTGRES_URL"),
+		GRPCPort:    v.GetString("GRPC_PORT"),
+	}
+	if strings.TrimSpace(cfg.PostgresURL) == "" {
+		return nil, errors.New("POSTGRES_URL is required")
+	}
+	return cfg, nil
 }
