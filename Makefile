@@ -1,10 +1,13 @@
-.PHONY: run test fmt tidy up down reset db-tables tools proto
+.PHONY: run test fmt tidy up down reset db-tables tools proto benchmark-v1
 
 run:
 	go run ./cmd/api
 
 test:
 	go test ./...
+
+benchmark-v1:
+	python3 benchmarks/v1/run.py
 
 fmt:
 	gofmt -w .

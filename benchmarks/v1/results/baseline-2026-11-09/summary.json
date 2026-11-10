@@ -1,0 +1,995 @@
+{
+  "architecture": "v1: one Go API process and one PostgreSQL instance; no application cache",
+  "created_utc": "2026-11-10T02:06:18.082694+00:00",
+  "worktree_revision_before_build": "926a1a305b51920015fa7e96500b0564d161b215",
+  "go_version": "go version go1.27.3 linux/amd64",
+  "ghz_version": "v0.121.0",
+  "runner_sha256": "fae8b9e49622873221f51b608cbfa3371a58b1e2a2790750e4290845eb506024",
+  "cpu_count": 8,
+  "cpu_model": "Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz",
+  "inventory_rows_per_run": 100000,
+  "workload_percent": {
+    "ListTickets": 70,
+    "GetTicket": 20,
+    "UpdateTicketStatus_RESERVED": 10
+  },
+  "search_page_size": 50,
+  "request_timeout_seconds": 5,
+  "warmup_requests_per_run": 200,
+  "configured_concurrency": [
+    10,
+    50,
+    100,
+    250,
+    1000
+  ],
+  "volumes": [
+    {
+      "request_budget": 10000,
+      "stages": [
+        {
+          "concurrency": 10,
+          "requests": 2000,
+          "errors": 0,
+          "p50_ms": 2.424,
+          "p95_ms": 4.606,
+          "p99_ms": 6.362,
+          "max_ms": 11.351,
+          "wall_seconds": 0.6284,
+          "requests_per_second_wall": 3182.82,
+          "server_cpu_one_core_percent": 179.83,
+          "server_peak_rss_mib": 31.68,
+          "server_peak_os_threads": 16,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 1400,
+              "errors": 0,
+              "p50_ms": 2.736,
+              "p95_ms": 4.862,
+              "p99_ms": 6.532,
+              "max_ms": 11.351,
+              "ghz_rps": 2318.91,
+              "status_codes": {
+                "OK": 1400
+              },
+              "duration_seconds": 0.603731554,
+              "raw_report": "raw/n10000-c10-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 400,
+              "errors": 0,
+              "p50_ms": 1.175,
+              "p95_ms": 2.991,
+              "p99_ms": 3.767,
+              "max_ms": 5.125,
+              "ghz_rps": 1371.99,
+              "status_codes": {
+                "OK": 400
+              },
+              "duration_seconds": 0.291548318,
+              "raw_report": "raw/n10000-c10-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 200,
+              "errors": 0,
+              "p50_ms": 2.243,
+              "p95_ms": 3.798,
+              "p99_ms": 4.867,
+              "max_ms": 5.554,
+              "ghz_rps": 403.86,
+              "status_codes": {
+                "OK": 200
+              },
+              "duration_seconds": 0.49522554,
+              "raw_report": "raw/n10000-c10-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 50,
+          "requests": 2000,
+          "errors": 0,
+          "p50_ms": 11.355,
+          "p95_ms": 17.171,
+          "p99_ms": 21.345,
+          "max_ms": 28.322,
+          "wall_seconds": 0.519,
+          "requests_per_second_wall": 3853.42,
+          "server_cpu_one_core_percent": 183.04,
+          "server_peak_rss_mib": 34.21,
+          "server_peak_os_threads": 17,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 1400,
+              "errors": 0,
+              "p50_ms": 11.844,
+              "p95_ms": 17.658,
+              "p99_ms": 22.498,
+              "max_ms": 28.322,
+              "ghz_rps": 2816.81,
+              "status_codes": {
+                "OK": 1400
+              },
+              "duration_seconds": 0.49701613,
+              "raw_report": "raw/n10000-c50-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 400,
+              "errors": 0,
+              "p50_ms": 9.742,
+              "p95_ms": 13.783,
+              "p99_ms": 16.107,
+              "max_ms": 18.639,
+              "ghz_rps": 999.39,
+              "status_codes": {
+                "OK": 400
+              },
+              "duration_seconds": 0.400245534,
+              "raw_report": "raw/n10000-c50-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 200,
+              "errors": 0,
+              "p50_ms": 11.194,
+              "p95_ms": 14.662,
+              "p99_ms": 18.182,
+              "max_ms": 20.444,
+              "ghz_rps": 445.55,
+              "status_codes": {
+                "OK": 200
+              },
+              "duration_seconds": 0.448886653,
+              "raw_report": "raw/n10000-c50-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 100,
+          "requests": 2000,
+          "errors": 0,
+          "p50_ms": 22.874,
+          "p95_ms": 30.934,
+          "p99_ms": 40.808,
+          "max_ms": 68.878,
+          "wall_seconds": 0.5092,
+          "requests_per_second_wall": 3927.86,
+          "server_cpu_one_core_percent": 182.65,
+          "server_peak_rss_mib": 36.22,
+          "server_peak_os_threads": 17,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 1400,
+              "errors": 0,
+              "p50_ms": 23.642,
+              "p95_ms": 32.761,
+              "p99_ms": 42.657,
+              "max_ms": 68.878,
+              "ghz_rps": 2862.47,
+              "status_codes": {
+                "OK": 1400
+              },
+              "duration_seconds": 0.489088518,
+              "raw_report": "raw/n10000-c100-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 400,
+              "errors": 0,
+              "p50_ms": 21.176,
+              "p95_ms": 25.932,
+              "p99_ms": 27.513,
+              "max_ms": 30.032,
+              "ghz_rps": 919.21,
+              "status_codes": {
+                "OK": 400
+              },
+              "duration_seconds": 0.435155536,
+              "raw_report": "raw/n10000-c100-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 200,
+              "errors": 0,
+              "p50_ms": 22.732,
+              "p95_ms": 28.132,
+              "p99_ms": 30.819,
+              "max_ms": 34.519,
+              "ghz_rps": 438.92,
+              "status_codes": {
+                "OK": 200
+              },
+              "duration_seconds": 0.455664646,
+              "raw_report": "raw/n10000-c100-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 250,
+          "requests": 2000,
+          "errors": 0,
+          "p50_ms": 55.277,
+          "p95_ms": 64.024,
+          "p99_ms": 67.815,
+          "max_ms": 80.44,
+          "wall_seconds": 0.4853,
+          "requests_per_second_wall": 4121.28,
+          "server_cpu_one_core_percent": 177.21,
+          "server_peak_rss_mib": 43.85,
+          "server_peak_os_threads": 18,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 1400,
+              "errors": 0,
+              "p50_ms": 56.127,
+              "p95_ms": 64.373,
+              "p99_ms": 69.323,
+              "max_ms": 80.44,
+              "ghz_rps": 3020.51,
+              "status_codes": {
+                "OK": 1400
+              },
+              "duration_seconds": 0.463497912,
+              "raw_report": "raw/n10000-c250-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 400,
+              "errors": 0,
+              "p50_ms": 52.009,
+              "p95_ms": 63.3,
+              "p99_ms": 66.444,
+              "max_ms": 67.449,
+              "ghz_rps": 923.66,
+              "status_codes": {
+                "OK": 400
+              },
+              "duration_seconds": 0.433061172,
+              "raw_report": "raw/n10000-c250-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 200,
+              "errors": 0,
+              "p50_ms": 53.71,
+              "p95_ms": 61.729,
+              "p99_ms": 64.92,
+              "max_ms": 66.705,
+              "ghz_rps": 474.09,
+              "status_codes": {
+                "OK": 200
+              },
+              "duration_seconds": 0.421858054,
+              "raw_report": "raw/n10000-c250-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 1000,
+          "requests": 2000,
+          "errors": 0,
+          "p50_ms": 199.6,
+          "p95_ms": 234.218,
+          "p99_ms": 252.828,
+          "max_ms": 271.657,
+          "wall_seconds": 0.4838,
+          "requests_per_second_wall": 4133.52,
+          "server_cpu_one_core_percent": 167.41,
+          "server_peak_rss_mib": 63.26,
+          "server_peak_os_threads": 18,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 1400,
+              "errors": 0,
+              "p50_ms": 199.915,
+              "p95_ms": 237.164,
+              "p99_ms": 253.689,
+              "max_ms": 271.657,
+              "ghz_rps": 3066.57,
+              "status_codes": {
+                "OK": 1400
+              },
+              "duration_seconds": 0.456536281,
+              "raw_report": "raw/n10000-c1000-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 400,
+              "errors": 0,
+              "p50_ms": 197.52,
+              "p95_ms": 218.545,
+              "p99_ms": 248.819,
+              "max_ms": 262.28,
+              "ghz_rps": 881.09,
+              "status_codes": {
+                "OK": 400
+              },
+              "duration_seconds": 0.453984581,
+              "raw_report": "raw/n10000-c1000-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 200,
+              "errors": 0,
+              "p50_ms": 142.88,
+              "p95_ms": 223.104,
+              "p99_ms": 248.423,
+              "max_ms": 254.287,
+              "ghz_rps": 562.39,
+              "status_codes": {
+                "OK": 200
+              },
+              "duration_seconds": 0.355626211,
+              "raw_report": "raw/n10000-c1000-UpdateTicketStatus.json"
+            }
+          }
+        }
+      ],
+      "database_state": {
+        "available": 99000,
+        "reserved": 1000
+      },
+      "acknowledged_reservations": 1000,
+      "database_state_matches_acknowledgements": true,
+      "api_shutdown": "graceful",
+      "temporary_schema_removed": true
+    },
+    {
+      "request_budget": 100000,
+      "stages": [
+        {
+          "concurrency": 10,
+          "requests": 20000,
+          "errors": 0,
+          "p50_ms": 2.321,
+          "p95_ms": 4.279,
+          "p99_ms": 5.513,
+          "max_ms": 12.078,
+          "wall_seconds": 5.7602,
+          "requests_per_second_wall": 3472.12,
+          "server_cpu_one_core_percent": 186.11,
+          "server_peak_rss_mib": 33.02,
+          "server_peak_os_threads": 16,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 14000,
+              "errors": 0,
+              "p50_ms": 2.557,
+              "p95_ms": 4.51,
+              "p99_ms": 5.806,
+              "max_ms": 12.078,
+              "ghz_rps": 2459.82,
+              "status_codes": {
+                "OK": 14000
+              },
+              "duration_seconds": 5.691477818,
+              "raw_report": "raw/n100000-c10-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 4000,
+              "errors": 0,
+              "p50_ms": 1.124,
+              "p95_ms": 2.627,
+              "p99_ms": 3.715,
+              "max_ms": 6.162,
+              "ghz_rps": 1483.21,
+              "status_codes": {
+                "OK": 4000
+              },
+              "duration_seconds": 2.696853226,
+              "raw_report": "raw/n100000-c10-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 2000,
+              "errors": 0,
+              "p50_ms": 2.165,
+              "p95_ms": 3.814,
+              "p99_ms": 4.986,
+              "max_ms": 6.992,
+              "ghz_rps": 415.81,
+              "status_codes": {
+                "OK": 2000
+              },
+              "duration_seconds": 4.809839106,
+              "raw_report": "raw/n100000-c10-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 50,
+          "requests": 20000,
+          "errors": 0,
+          "p50_ms": 10.743,
+          "p95_ms": 17.408,
+          "p99_ms": 22.012,
+          "max_ms": 33.866,
+          "wall_seconds": 4.8752,
+          "requests_per_second_wall": 4102.43,
+          "server_cpu_one_core_percent": 187.89,
+          "server_peak_rss_mib": 38.1,
+          "server_peak_os_threads": 17,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 14000,
+              "errors": 0,
+              "p50_ms": 11.367,
+              "p95_ms": 18.484,
+              "p99_ms": 23.126,
+              "max_ms": 33.866,
+              "ghz_rps": 2914.67,
+              "status_codes": {
+                "OK": 14000
+              },
+              "duration_seconds": 4.803288457,
+              "raw_report": "raw/n100000-c50-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 4000,
+              "errors": 0,
+              "p50_ms": 9.123,
+              "p95_ms": 13.016,
+              "p99_ms": 15.683,
+              "max_ms": 26.47,
+              "ghz_rps": 1098.77,
+              "status_codes": {
+                "OK": 4000
+              },
+              "duration_seconds": 3.640427608,
+              "raw_report": "raw/n100000-c50-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 2000,
+              "errors": 0,
+              "p50_ms": 10.461,
+              "p95_ms": 14.723,
+              "p99_ms": 16.901,
+              "max_ms": 21.533,
+              "ghz_rps": 478.82,
+              "status_codes": {
+                "OK": 2000
+              },
+              "duration_seconds": 4.176963382,
+              "raw_report": "raw/n100000-c50-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 100,
+          "requests": 20000,
+          "errors": 0,
+          "p50_ms": 22.407,
+          "p95_ms": 29.032,
+          "p99_ms": 34.093,
+          "max_ms": 50.409,
+          "wall_seconds": 4.7769,
+          "requests_per_second_wall": 4186.84,
+          "server_cpu_one_core_percent": 188.83,
+          "server_peak_rss_mib": 38.86,
+          "server_peak_os_threads": 17,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 14000,
+              "errors": 0,
+              "p50_ms": 23.0,
+              "p95_ms": 30.016,
+              "p99_ms": 35.527,
+              "max_ms": 50.409,
+              "ghz_rps": 2969.91,
+              "status_codes": {
+                "OK": 14000
+              },
+              "duration_seconds": 4.7139428,
+              "raw_report": "raw/n100000-c100-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 4000,
+              "errors": 0,
+              "p50_ms": 20.745,
+              "p95_ms": 25.547,
+              "p99_ms": 27.832,
+              "max_ms": 33.465,
+              "ghz_rps": 959.66,
+              "status_codes": {
+                "OK": 4000
+              },
+              "duration_seconds": 4.168159692,
+              "raw_report": "raw/n100000-c100-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 2000,
+              "errors": 0,
+              "p50_ms": 22.141,
+              "p95_ms": 26.826,
+              "p99_ms": 29.177,
+              "max_ms": 32.601,
+              "ghz_rps": 451.16,
+              "status_codes": {
+                "OK": 2000
+              },
+              "duration_seconds": 4.433038778,
+              "raw_report": "raw/n100000-c100-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 250,
+          "requests": 20000,
+          "errors": 0,
+          "p50_ms": 55.527,
+          "p95_ms": 64.206,
+          "p99_ms": 70.49,
+          "max_ms": 93.286,
+          "wall_seconds": 4.6268,
+          "requests_per_second_wall": 4322.66,
+          "server_cpu_one_core_percent": 183.93,
+          "server_peak_rss_mib": 43.36,
+          "server_peak_os_threads": 17,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 14000,
+              "errors": 0,
+              "p50_ms": 56.249,
+              "p95_ms": 65.583,
+              "p99_ms": 72.021,
+              "max_ms": 93.286,
+              "ghz_rps": 3066.76,
+              "status_codes": {
+                "OK": 14000
+              },
+              "duration_seconds": 4.565083454,
+              "raw_report": "raw/n100000-c250-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 4000,
+              "errors": 0,
+              "p50_ms": 53.602,
+              "p95_ms": 59.745,
+              "p99_ms": 62.741,
+              "max_ms": 74.082,
+              "ghz_rps": 922.73,
+              "status_codes": {
+                "OK": 4000
+              },
+              "duration_seconds": 4.334980944,
+              "raw_report": "raw/n100000-c250-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 2000,
+              "errors": 0,
+              "p50_ms": 54.942,
+              "p95_ms": 61.338,
+              "p99_ms": 65.578,
+              "max_ms": 70.843,
+              "ghz_rps": 451.96,
+              "status_codes": {
+                "OK": 2000
+              },
+              "duration_seconds": 4.425132877,
+              "raw_report": "raw/n100000-c250-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 1000,
+          "requests": 20000,
+          "errors": 0,
+          "p50_ms": 211.429,
+          "p95_ms": 224.545,
+          "p99_ms": 231.069,
+          "max_ms": 250.939,
+          "wall_seconds": 4.3604,
+          "requests_per_second_wall": 4586.78,
+          "server_cpu_one_core_percent": 183.24,
+          "server_peak_rss_mib": 65.29,
+          "server_peak_os_threads": 17,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 14000,
+              "errors": 0,
+              "p50_ms": 211.827,
+              "p95_ms": 225.264,
+              "p99_ms": 232.225,
+              "max_ms": 250.939,
+              "ghz_rps": 3263.57,
+              "status_codes": {
+                "OK": 14000
+              },
+              "duration_seconds": 4.289781914,
+              "raw_report": "raw/n100000-c1000-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 4000,
+              "errors": 0,
+              "p50_ms": 210.376,
+              "p95_ms": 222.068,
+              "p99_ms": 228.431,
+              "max_ms": 243.712,
+              "ghz_rps": 948.49,
+              "status_codes": {
+                "OK": 4000
+              },
+              "duration_seconds": 4.217231504,
+              "raw_report": "raw/n100000-c1000-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 2000,
+              "errors": 0,
+              "p50_ms": 211.11,
+              "p95_ms": 221.758,
+              "p99_ms": 227.173,
+              "max_ms": 231.427,
+              "ghz_rps": 472.86,
+              "status_codes": {
+                "OK": 2000
+              },
+              "duration_seconds": 4.229621397,
+              "raw_report": "raw/n100000-c1000-UpdateTicketStatus.json"
+            }
+          }
+        }
+      ],
+      "database_state": {
+        "available": 90000,
+        "reserved": 10000
+      },
+      "acknowledged_reservations": 10000,
+      "database_state_matches_acknowledgements": true,
+      "api_shutdown": "graceful",
+      "temporary_schema_removed": true
+    },
+    {
+      "request_budget": 1000000,
+      "stages": [
+        {
+          "concurrency": 10,
+          "requests": 200000,
+          "errors": 0,
+          "p50_ms": 2.283,
+          "p95_ms": 4.212,
+          "p99_ms": 5.866,
+          "max_ms": 97.669,
+          "wall_seconds": 56.3717,
+          "requests_per_second_wall": 3547.88,
+          "server_cpu_one_core_percent": 186.71,
+          "server_peak_rss_mib": 34.19,
+          "server_peak_os_threads": 17,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 140000,
+              "errors": 0,
+              "p50_ms": 2.497,
+              "p95_ms": 4.419,
+              "p99_ms": 6.059,
+              "max_ms": 32.351,
+              "ghz_rps": 2504.62,
+              "status_codes": {
+                "OK": 140000
+              },
+              "duration_seconds": 55.896786676,
+              "raw_report": "raw/n1000000-c10-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 40000,
+              "errors": 0,
+              "p50_ms": 1.164,
+              "p95_ms": 2.727,
+              "p99_ms": 3.907,
+              "max_ms": 18.727,
+              "ghz_rps": 1436.16,
+              "status_codes": {
+                "OK": 40000
+              },
+              "duration_seconds": 27.852040163,
+              "raw_report": "raw/n1000000-c10-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 20000,
+              "errors": 0,
+              "p50_ms": 2.204,
+              "p95_ms": 3.949,
+              "p99_ms": 7.276,
+              "max_ms": 97.669,
+              "ghz_rps": 394.73,
+              "status_codes": {
+                "OK": 20000
+              },
+              "duration_seconds": 50.667184741,
+              "raw_report": "raw/n1000000-c10-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 50,
+          "requests": 200000,
+          "errors": 0,
+          "p50_ms": 10.891,
+          "p95_ms": 16.465,
+          "p99_ms": 21.244,
+          "max_ms": 67.409,
+          "wall_seconds": 48.3927,
+          "requests_per_second_wall": 4132.85,
+          "server_cpu_one_core_percent": 190.05,
+          "server_peak_rss_mib": 39.96,
+          "server_peak_os_threads": 19,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 140000,
+              "errors": 0,
+              "p50_ms": 11.332,
+              "p95_ms": 17.117,
+              "p99_ms": 22.24,
+              "max_ms": 67.409,
+              "ghz_rps": 2923.15,
+              "status_codes": {
+                "OK": 140000
+              },
+              "duration_seconds": 47.893555962,
+              "raw_report": "raw/n1000000-c50-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 40000,
+              "errors": 0,
+              "p50_ms": 9.538,
+              "p95_ms": 13.481,
+              "p99_ms": 16.699,
+              "max_ms": 34.551,
+              "ghz_rps": 1033.45,
+              "status_codes": {
+                "OK": 40000
+              },
+              "duration_seconds": 38.705140156,
+              "raw_report": "raw/n1000000-c50-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 20000,
+              "errors": 0,
+              "p50_ms": 10.824,
+              "p95_ms": 15.005,
+              "p99_ms": 18.742,
+              "max_ms": 34.865,
+              "ghz_rps": 455.28,
+              "status_codes": {
+                "OK": 20000
+              },
+              "duration_seconds": 43.929117494,
+              "raw_report": "raw/n1000000-c50-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 100,
+          "requests": 200000,
+          "errors": 0,
+          "p50_ms": 22.349,
+          "p95_ms": 29.325,
+          "p99_ms": 37.17,
+          "max_ms": 94.839,
+          "wall_seconds": 47.7993,
+          "requests_per_second_wall": 4184.16,
+          "server_cpu_one_core_percent": 188.1,
+          "server_peak_rss_mib": 41.57,
+          "server_peak_os_threads": 21,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 140000,
+              "errors": 0,
+              "p50_ms": 22.841,
+              "p95_ms": 30.11,
+              "p99_ms": 38.442,
+              "max_ms": 94.839,
+              "ghz_rps": 2957.15,
+              "status_codes": {
+                "OK": 140000
+              },
+              "duration_seconds": 47.342886766,
+              "raw_report": "raw/n1000000-c100-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 40000,
+              "errors": 0,
+              "p50_ms": 20.903,
+              "p95_ms": 26.188,
+              "p99_ms": 32.25,
+              "max_ms": 61.327,
+              "ghz_rps": 942.06,
+              "status_codes": {
+                "OK": 40000
+              },
+              "duration_seconds": 42.460052305,
+              "raw_report": "raw/n1000000-c100-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 20000,
+              "errors": 0,
+              "p50_ms": 22.235,
+              "p95_ms": 27.656,
+              "p99_ms": 33.844,
+              "max_ms": 59.968,
+              "ghz_rps": 443.4,
+              "status_codes": {
+                "OK": 20000
+              },
+              "duration_seconds": 45.105519752,
+              "raw_report": "raw/n1000000-c100-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 250,
+          "requests": 200000,
+          "errors": 0,
+          "p50_ms": 55.162,
+          "p95_ms": 65.303,
+          "p99_ms": 77.436,
+          "max_ms": 130.041,
+          "wall_seconds": 46.0064,
+          "requests_per_second_wall": 4347.23,
+          "server_cpu_one_core_percent": 185.58,
+          "server_peak_rss_mib": 47.76,
+          "server_peak_os_threads": 21,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 140000,
+              "errors": 0,
+              "p50_ms": 55.683,
+              "p95_ms": 66.214,
+              "p99_ms": 79.112,
+              "max_ms": 130.041,
+              "ghz_rps": 3076.2,
+              "status_codes": {
+                "OK": 140000
+              },
+              "duration_seconds": 45.510684309,
+              "raw_report": "raw/n1000000-c250-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 40000,
+              "errors": 0,
+              "p50_ms": 53.53,
+              "p95_ms": 61.947,
+              "p99_ms": 72.336,
+              "max_ms": 92.23,
+              "ghz_rps": 923.79,
+              "status_codes": {
+                "OK": 40000
+              },
+              "duration_seconds": 43.299786893,
+              "raw_report": "raw/n1000000-c250-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 20000,
+              "errors": 0,
+              "p50_ms": 54.958,
+              "p95_ms": 63.305,
+              "p99_ms": 73.395,
+              "max_ms": 97.065,
+              "ghz_rps": 450.13,
+              "status_codes": {
+                "OK": 20000
+              },
+              "duration_seconds": 44.431484853,
+              "raw_report": "raw/n1000000-c250-UpdateTicketStatus.json"
+            }
+          }
+        },
+        {
+          "concurrency": 1000,
+          "requests": 200000,
+          "errors": 0,
+          "p50_ms": 215.16,
+          "p95_ms": 234.545,
+          "p99_ms": 289.141,
+          "max_ms": 345.928,
+          "wall_seconds": 44.303,
+          "requests_per_second_wall": 4514.36,
+          "server_cpu_one_core_percent": 185.0,
+          "server_peak_rss_mib": 68.83,
+          "server_peak_os_threads": 21,
+          "server_pool_connections": 8,
+          "methods": {
+            "ListTickets": {
+              "requests": 140000,
+              "errors": 0,
+              "p50_ms": 215.61,
+              "p95_ms": 235.536,
+              "p99_ms": 290.446,
+              "max_ms": 345.928,
+              "ghz_rps": 3195.81,
+              "status_codes": {
+                "OK": 140000
+              },
+              "duration_seconds": 43.80737543,
+              "raw_report": "raw/n1000000-c1000-ListTickets.json"
+            },
+            "GetTicket": {
+              "requests": 40000,
+              "errors": 0,
+              "p50_ms": 213.852,
+              "p95_ms": 230.14,
+              "p99_ms": 284.524,
+              "max_ms": 314.967,
+              "ghz_rps": 923.54,
+              "status_codes": {
+                "OK": 40000
+              },
+              "duration_seconds": 43.311616803,
+              "raw_report": "raw/n1000000-c1000-GetTicket.json"
+            },
+            "UpdateTicketStatus": {
+              "requests": 20000,
+              "errors": 0,
+              "p50_ms": 214.977,
+              "p95_ms": 233.945,
+              "p99_ms": 291.285,
+              "max_ms": 314.228,
+              "ghz_rps": 459.27,
+              "status_codes": {
+                "OK": 20000
+              },
+              "duration_seconds": 43.547005183,
+              "raw_report": "raw/n1000000-c1000-UpdateTicketStatus.json"
+            }
+          }
+        }
+      ],
+      "database_state": {
+        "reserved": 100000
+      },
+      "acknowledged_reservations": 100000,
+      "database_state_matches_acknowledgements": true,
+      "api_shutdown": "graceful",
+      "temporary_schema_removed": true
+    }
+  ],
+  "methodology": {
+    "percentiles": "Nearest rank over individual RPC latencies, including failures; never average method percentiles",
+    "rps": "Completed measured calls divided by stage wall time, including load-client startup and JSON output",
+    "load_shape": "Three closed-loop method-specific worker pools, split 70/20/10; instantaneous mix changes as pools drain",
+    "connections_per_method": "min(8, method worker count)",
+    "dataset": "Same initial inventory size for all volumes; fresh schema and API process per volume; reservations accumulate within each volume"
+  },
+  "limitations": [
+    "Generator, API, and PostgreSQL share a host with other workstation processes.",
+    "No think time; configured workers are not simultaneous human users.",
+    "No TLS, remote network, hot-ticket contention, or complete checkout workflow.",
+    "Pool waits, query durations, database CPU/IO, and Go goroutines are not instrumented.",
+    "CPU is percent of one core; OS thread counts are not goroutine counts.",
+    "Raw per-request reports remain local under the git-ignored raw directory."
+  ],
+  "source_sha256": {
+    "cmd/api/main.go": "6d5817bd3b7a15bf80d5a27b056fc3d2dd536724c022416eb53656545f515036",
+    "gen/ticket/v1/ticket.pb.go": "71943c249cc07836196f624bb2894212658c9367f1f544807b3937e0e9d2c653",
+    "gen/ticket/v1/ticket_grpc.pb.go": "9cebe611f270d50b22f09e18271573be3e7118e7dbb3941cf2defb1dd010f808",
+    "go.mod": "4871f8d5626bf1033a6ee08ebd9056de15dc022eafaf02972cb3c95415e1fea5",
+    "go.sum": "74c9673dedeabb86bb627e426b3442f2bcf276b11e14ea1733a4489839ee43be",
+    "internal/bootstrap/grpc.go": "e30a16d4075adf1fe7d29694be42ec371df8301d705f2b2e734cace74f191c09",
+    "internal/bootstrap/module.go": "8d7371a81261e93c9214aadcbbf7584301d946167d92f94d9524386f72d84f52",
+    "internal/config/config.go": "4daaca6ed376447964ed9c2219cffe977c1cf6afd46ddc337546b97565c29884",
+    "internal/db/db.go": "8c170033134760579b04381d802fc0ac4e4ed74c06a93db51c37450e810fd5b9",
+    "internal/grpcapi/convert.go": "48aad285259fe91a3521efafe7cb1f219b0a0120f606d1fe3ab28b935039c671",
+    "internal/grpcapi/ticket_server.go": "8e15b7fec6c0707fcf7eb4f10e7c5a874118a072a7659e75b0a3627b18e3a331",
+    "internal/grpcapi/ticket_service.go": "00674a79e4f7fdb02dcd219d8a86af41061badd99c171ca8582f37462b5902bf",
+    "internal/ticket/repository.go": "ed1d5d5a9801a2e9c71cfe706fa39e9642df0e925390a6167b8605400215d85c",
+    "internal/ticket/service.go": "f0ebad8bcb6f59487d3af8fa43d1775a368998bd05ae0cf4f8d7fea8368236eb",
+    "internal/ticket/ticket.go": "aed42041280e4f1d3718d57c603072e6f873267fdfd04f5fca3acc130cce3b03",
+    "migrations/001_create_tickets.sql": "533e622312b34085f2abafedb56fedd00f21dbd801f94574ad0701803d27c4fb"
+  },
+  "api_binary_sha256": "16aba5d92ff8acbba20a5636dff0ce88e4d2bcb0a470be2b1cd45936ea3e78e7",
+  "build_info": "/tmp/cdc-benchmark-v1-ahpcq_kk/api: go1.27.3\n\tpath\tgithub.com/HuyDoan-2112/handle-massive-requests/cmd/api\n\tmod\tgithub.com/HuyDoan-2112/handle-massive-requests\tv0.0.0-20261110020458-926a1a305b51+dirty\t\n\tdep\tgithub.com/fsnotify/fsnotify\tv1.9.0\th1:2Ml+OJNzbYCTzsxtv8vKSFD9PbJjmhYF14k/jKC7S9k=\n\tdep\tgithub.com/gabriel-vasile/mimetype\tv1.4.12\th1:e9hWvmLYvtp846tLHam2o++qitpguFiYCKbn0w9jyqw=\n\tdep\tgithub.com/go-playground/locales\tv0.14.1\th1:EWaQ/wswjilfKLTECiXz7Rh+3BjFhfDFKv/oXslEjJA=\n\tdep\tgithub.com/go-playground/universal-translator\tv0.18.1\th1:Bcnm0ZwsGyWbCzImXv+pAJnYK9S473LQFuzCbDbfSFY=\n\tdep\tgithub.com/go-playground/validator/v10\tv10.30.1\th1:f3zDSN/zOma+w6+1Wswgd9fLkdwy06ntQJp0BBvFG0w=\n\tdep\tgithub.com/go-viper/mapstructure/v2\tv2.4.0\th1:EBsztssimR/CONLSZZ04E8qAkxNYq4Qp9LvH92wZUgs=\n\tdep\tgithub.com/google/uuid\tv1.6.0\th1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=\n\tdep\tgithub.com/jackc/pgpassfile\tv1.0.0\th1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=\n\tdep\tgithub.com/jackc/pgservicefile\tv0.0.0-20240606120523-5a60cdf6a761\th1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=\n\tdep\tgithub.com/jackc/pgx/v5\tv5.12.0\th1:hWwax8YiGT0YiN50U1oIDn5kgR7KC2tG3rmavwpPkxY=\n\tdep\tgithub.com/jackc/puddle/v2\tv2.2.3\th1:f8HoREISb3l5eO9coPgK7U3hKLhWGokOFVcThl5jrao=\n\tdep\tgithub.com/leodido/go-urn\tv1.4.0\th1:WT9HwE9SGECu3lg4d/dIA+jxlljEa1/ffXKmRjqdmIQ=\n\tdep\tgithub.com/pelletier/go-toml/v2\tv2.2.4\th1:mye9XuhQ6gvn5h28+VilKrrPoQVanw5PMw/TB0t5Ec4=\n\tdep\tgithub.com/sagikazarmark/locafero\tv0.11.0\th1:1iurJgmM9G3PA/I+wWYIOw/5SyBtxapeHDcg+AAIFXc=\n\tdep\tgithub.com/sourcegraph/conc\tv0.3.1-0.20240121214520-5f936abd7ae8\th1:+jumHNA0Wrelhe64i8F6HNlS8pkoyMv5sreGx2Ry5Rw=\n\tdep\tgithub.com/spf13/afero\tv1.15.0\th1:b/YBCLWAJdFWJTN9cLhiXXcD7mzKn9Dm86dNnfyQw1I=\n\tdep\tgithub.com/spf13/cast\tv1.10.0\th1:h2x0u2shc1QuLHfxi+cTJvs30+ZAHOGRic8uyGTDWxY=\n\tdep\tgithub.com/spf13/pflag\tv1.0.10\th1:4EBh2KAYBwaONj6b2Ye1GiHfwjqyROoF4RwYO+vPwFk=\n\tdep\tgithub.com/spf13/viper\tv1.21.0\th1:x5S+0EU27Lbphp4UKm1C+1oQO+rKx36vfCoaVebLFSU=\n\tdep\tgithub.com/subosito/gotenv\tv1.6.0\th1:9NlTDc1FTs4qu0DDq7AEtTPNw6SVm7uBMsUCUjABIf8=\n\tdep\tgo.uber.org/dig\tv1.19.0\th1:BACLhebsYdpQ7IROQ1AGPjrXcP5dF80U3gKoFzbaq/4=\n\tdep\tgo.uber.org/fx\tv1.24.0\th1:wE8mruvpg2kiiL1Vqd0CC+tr0/24XIB10Iwp2lLWzkg=\n\tdep\tgo.uber.org/multierr\tv1.10.0\th1:S0h4aNzvfcFsC3dRF1jLoaov7oRaKqRGC/pUEJ2yvPQ=\n\tdep\tgo.uber.org/zap\tv1.26.0\th1:sI7k6L95XOKS281NhVKOFCUNIvv9e0w4BF8N3u+tCRo=\n\tdep\tgo.yaml.in/yaml/v3\tv3.0.5\th1:N6y/pJk8buWs9NY5ERU2HSMfm+IuD/OtfdAnq6kESPw=\n\tdep\tgolang.org/x/crypto\tv0.57.0\th1:3ZVCjf8Ggz7zneR/EHRVx68Ctf+2pmIMP2UFhh9cC6M=\n\tdep\tgolang.org/x/net\tv0.60.0\th1:79p50tfZlm0J9YfoDsSi639qSXNGVwEzOPLCxM2FsYU=\n\tdep\tgolang.org/x/sync\tv0.23.0\th1:KameEIfc1IkluZyXWLn39Wd4tURc6GbCiISGiZm2bQk=\n\tdep\tgolang.org/x/sys\tv0.48.0\th1:bbX/i/6MgT9BVLM9RT1thmxL04yeTAhbEz4SyadbXoo=\n\tdep\tgolang.org/x/text\tv0.42.0\th1:JbOZXgfeCPU9gacVtYliJqOhD+zhrEqK4LfdpmlUZqI=\n\tdep\tgoogle.golang.org/genproto/googleapis/rpc\tv0.0.0-20260817212433-ac3dfec99bb1\th1:utmqiUzZAEINbLmRyAt1QjVkMyLQ+lvIwCpLaB1rZfw=\n\tdep\tgoogle.golang.org/grpc\tv1.85.0\th1:BPBCfuVRQ1qvBhKDOq9uvQllMvO59rKsYhXpp7Dd8vw=\n\tdep\tgoogle.golang.org/protobuf\tv1.36.12\th1:pJOKDDOyeXErUroCihFAd5LQuwXBSpVnKGrj5o/fwxc=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=926a1a305b51920015fa7e96500b0564d161b215\n\tbuild\tvcs.time=2026-11-10T02:04:58Z\n\tbuild\tvcs.modified=true\n",
+  "postgres_version": "16.15 (Debian 16.15-1.pgdg13+2)",
+  "postgres_max_connections": 100,
+  "source_changed_after_build": false,
+  "measured_requests": 1110000,
+  "errors": 0,
+  "passed": true,
+  "finished_utc": "2026-11-10T02:10:56.744236+00:00",
+  "runner_source": "raw/runner.py",
+  "source_archive": "raw/source.tar.gz"
+}

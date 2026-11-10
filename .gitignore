@@ -17,3 +17,7 @@ target/
 build/
 .gradle/
 *.class
+
+# Local benchmark samples, logs, and source snapshots
+benchmarks/**/results/**/raw/
+benchmarks/**/__pycache__/
