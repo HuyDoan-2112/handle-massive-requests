@@ -17,6 +17,16 @@ migrations/         SQL run on first start of the postgres container
 deploy/             docker-compose for local infra
 ```
 
+Ticket requests follow `gRPC handler → ticket.Service → ticket.Repository → PostgreSQL`.
+
+- `internal/ticket/ticket.go`: ticket types, validation tags, domain errors, and allowed status transitions.
+- `internal/ticket/service.go`: application operations and the `Store` interface they require. The service validates input using the existing `go-playground/validator` dependency.
+- `internal/ticket/repository.go`: parameterized SQL and database error handling. Status changes check and update the current status in one SQL statement.
+- `internal/ticket/service_test.go`: service validation and storage error tests, without PostgreSQL.
+- `internal/ticket/repository_test.go`: PostgreSQL integration tests, including competing reservations. Each test creates and removes its own schema.
+
+The gRPC handlers keep protobuf conversion, UUID parsing, page tokens, and gRPC error mapping. `cmd/api/main.go` connects the repository to the service and the service to the handlers.
+
 ## How to run
 
 ```bash
@@ -27,6 +37,14 @@ make run    # HTTP on :8080 (health), gRPC on :9090 (tickets)
 make test
 make proto  # after editing proto/: lint + regenerate gen/
 ```
+
+Database integration tests are skipped unless `TEST_DATABASE_URL` is set. With local PostgreSQL running, run all tests using:
+
+```bash
+TEST_DATABASE_URL='postgres://app:app@localhost:5433/train?sslmode=disable' go test ./...
+```
+
+The test database user needs permission to create schemas. The tests apply the existing migration inside temporary schemas and leave application tables untouched.
 
 `.env` (not committed):
 
