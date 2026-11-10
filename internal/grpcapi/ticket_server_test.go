@@ -20,8 +20,7 @@ import (
 	"github.com/HuyDoan-2112/handle-massive-requests/internal/ticket"
 )
 
-// fakeStore is an in-memory Store with the same semantics as the
-// Postgres repository.
+// fakeStore supplies in-memory storage for gRPC tests through the real service.
 type fakeStore struct {
 	mu      sync.Mutex
 	tickets map[uuid.UUID]ticket.Ticket
@@ -105,7 +104,8 @@ func newClient(t *testing.T) ticketv1.TicketServiceClient {
 	t.Helper()
 	lis := bufconn.Listen(1 << 20)
 	srv := grpc.NewServer()
-	ticketv1.RegisterTicketServiceServer(srv, NewTicketServer(&fakeStore{tickets: map[uuid.UUID]ticket.Ticket{}}))
+	store := &fakeStore{tickets: map[uuid.UUID]ticket.Ticket{}}
+	ticketv1.RegisterTicketServiceServer(srv, NewTicketServer(ticket.NewService(store)))
 	go srv.Serve(lis)
 	t.Cleanup(srv.Stop)
 
@@ -186,6 +186,21 @@ func TestGetErrors(t *testing.T) {
 	wantCode(t, err, codes.InvalidArgument)
 	_, err = c.GetTicket(context.Background(), &ticketv1.GetTicketRequest{Id: uuid.NewString()})
 	wantCode(t, err, codes.NotFound)
+}
+
+func TestListValidation(t *testing.T) {
+	c := newClient(t)
+	for name, req := range map[string]*ticketv1.ListTicketsRequest{
+		"missing departure":   {Destination: "Saigon"},
+		"missing destination": {DepartureLocation: "Hanoi"},
+		"negative page size":  {DepartureLocation: "Hanoi", Destination: "Saigon", PageSize: -1},
+		"invalid page token":  {DepartureLocation: "Hanoi", Destination: "Saigon", PageToken: "!"},
+	} {
+		t.Run(name, func(t *testing.T) {
+			_, err := c.ListTickets(context.Background(), req)
+			wantCode(t, err, codes.InvalidArgument)
+		})
+	}
 }
 
 func TestListPagination(t *testing.T) {

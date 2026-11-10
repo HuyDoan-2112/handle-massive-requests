@@ -22,9 +22,8 @@ const (
 	maxPageSize     = 500
 )
 
-// Store is what the server needs from storage. *ticket.Repository
-// satisfies it; tests can pass a fake.
-type Store interface {
+// ticketService is the application interface consumed by the gRPC handlers.
+type ticketService interface {
 	Create(ctx context.Context, t ticket.Ticket) (ticket.Ticket, error)
 	Get(ctx context.Context, id uuid.UUID) (ticket.Ticket, error)
 	List(ctx context.Context, f ticket.ListFilter) ([]ticket.Ticket, error)
@@ -34,11 +33,11 @@ type Store interface {
 
 type TicketServer struct {
 	ticketv1.UnimplementedTicketServiceServer
-	store Store
+	service ticketService
 }
 
-func NewTicketServer(store Store) *TicketServer {
-	return &TicketServer{store: store}
+func NewTicketServer(service ticketService) *TicketServer {
+	return &TicketServer{service: service}
 }
 
 func (s *TicketServer) CreateTicket(ctx context.Context, req *ticketv1.CreateTicketRequest) (*ticketv1.CreateTicketResponse, error) {
@@ -55,10 +54,7 @@ func (s *TicketServer) CreateTicket(ctx context.Context, req *ticketv1.CreateTic
 		TimeStart:         timeFromProto(req.GetTimeStart()),
 		TimeEnd:           timeFromProto(req.GetTimeEnd()),
 	}
-	if err := in.Validate(); err != nil {
-		return nil, toStatus(err)
-	}
-	t, err := s.store.Create(ctx, in)
+	t, err := s.service.Create(ctx, in)
 	if err != nil {
 		return nil, toStatus(err)
 	}
@@ -70,7 +66,7 @@ func (s *TicketServer) GetTicket(ctx context.Context, req *ticketv1.GetTicketReq
 	if err != nil {
 		return nil, err
 	}
-	t, err := s.store.Get(ctx, id)
+	t, err := s.service.Get(ctx, id)
 	if err != nil {
 		return nil, toStatus(err)
 	}
@@ -78,9 +74,6 @@ func (s *TicketServer) GetTicket(ctx context.Context, req *ticketv1.GetTicketReq
 }
 
 func (s *TicketServer) ListTickets(ctx context.Context, req *ticketv1.ListTicketsRequest) (*ticketv1.ListTicketsResponse, error) {
-	if req.GetDepartureLocation() == "" || req.GetDestination() == "" {
-		return nil, status.Error(codes.InvalidArgument, "departure_location and destination are required")
-	}
 	size := int(req.GetPageSize())
 	switch {
 	case size < 0:
@@ -105,7 +98,7 @@ func (s *TicketServer) ListTickets(ctx context.Context, req *ticketv1.ListTicket
 		}
 	}
 
-	ts, err := s.store.List(ctx, f)
+	ts, err := s.service.List(ctx, f)
 	if err != nil {
 		return nil, toStatus(err)
 	}
@@ -130,7 +123,7 @@ func (s *TicketServer) UpdateTicketStatus(ctx context.Context, req *ticketv1.Upd
 	if !ok {
 		return nil, status.Error(codes.InvalidArgument, "status is required")
 	}
-	t, err := s.store.UpdateStatus(ctx, id, to)
+	t, err := s.service.UpdateStatus(ctx, id, to)
 	if err != nil {
 		return nil, toStatus(err)
 	}
@@ -142,7 +135,7 @@ func (s *TicketServer) DeleteTicket(ctx context.Context, req *ticketv1.DeleteTic
 	if err != nil {
 		return nil, err
 	}
-	if err := s.store.Delete(ctx, id); err != nil {
+	if err := s.service.Delete(ctx, id); err != nil {
 		return nil, toStatus(err)
 	}
 	return &ticketv1.DeleteTicketResponse{}, nil

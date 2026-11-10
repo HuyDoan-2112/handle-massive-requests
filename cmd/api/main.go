@@ -54,8 +54,11 @@ func main() {
 	}()
 
 	// gRPC: ticket API.
+	repository := ticket.NewRepository(pool)
+	service := ticket.NewService(repository)
+	ticketServer := grpcapi.NewTicketServer(service)
 	grpcSrv := grpc.NewServer()
-	ticketv1.RegisterTicketServiceServer(grpcSrv, grpcapi.NewTicketServer(ticket.NewRepository(pool)))
+	ticketv1.RegisterTicketServiceServer(grpcSrv, ticketServer)
 	healthpb.RegisterHealthServer(grpcSrv, health.NewServer())
 	reflection.Register(grpcSrv) // lets grpcurl / Postman discover the API
 
