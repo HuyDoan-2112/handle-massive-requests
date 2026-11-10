@@ -8,6 +8,7 @@
 
 ```
 cmd/api/            entrypoint (main.go): starts the gRPC server
+internal/bootstrap/ constructs dependencies and registers gRPC services
 proto/ticket/v1/    gRPC API contract (ticket.proto)
 gen/                generated Go code from proto/ - do not edit, run `make proto`
 internal/grpcapi/   gRPC TicketService implementation (and its tests)
@@ -25,7 +26,7 @@ Ticket requests follow `gRPC handler → ticket.Service → ticket.Repository �
 - `internal/ticket/repository_test.go`: PostgreSQL integration tests, including competing reservations. Each test creates and removes its own schema.
 - `internal/db/db_test.go`: pool error handling tests and a PostgreSQL integration test for connecting, querying, and closing the pool.
 
-The gRPC handlers keep protobuf conversion, UUID parsing, page tokens, and gRPC error mapping. `cmd/api/main.go` connects the repository to the service and the service to the handlers.
+The gRPC handlers keep protobuf conversion, UUID parsing, page tokens, and gRPC error mapping. Their application interface lives in `internal/grpcapi/ticket_service.go`. `internal/bootstrap/grpc.go` connects the repository to the service and the service to the handlers, then registers ticket, health, and reflection services. `cmd/api/main.go` handles configuration, database setup, listening, and shutdown.
 
 ## How to run
 

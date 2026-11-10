@@ -10,16 +10,9 @@ import (
 	"syscall"
 	"time"
 
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/health"
-	healthpb "google.golang.org/grpc/health/grpc_health_v1"
-	"google.golang.org/grpc/reflection"
-
-	ticketv1 "github.com/HuyDoan-2112/handle-massive-requests/gen/ticket/v1"
+	"github.com/HuyDoan-2112/handle-massive-requests/internal/bootstrap"
 	"github.com/HuyDoan-2112/handle-massive-requests/internal/config"
 	"github.com/HuyDoan-2112/handle-massive-requests/internal/db"
-	"github.com/HuyDoan-2112/handle-massive-requests/internal/grpcapi"
-	"github.com/HuyDoan-2112/handle-massive-requests/internal/ticket"
 )
 
 func main() {
@@ -37,14 +30,7 @@ func main() {
 	}
 	defer pool.Close()
 
-	// gRPC: ticket API.
-	repository := ticket.NewRepository(pool)
-	service := ticket.NewService(repository)
-	ticketServer := grpcapi.NewTicketServer(service)
-	grpcSrv := grpc.NewServer()
-	ticketv1.RegisterTicketServiceServer(grpcSrv, ticketServer)
-	healthpb.RegisterHealthServer(grpcSrv, health.NewServer())
-	reflection.Register(grpcSrv) // lets grpcurl / Postman discover the API
+	grpcSrv := bootstrap.NewGRPCServer(pool)
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", cfg.GRPCPort))
 	if err != nil {
