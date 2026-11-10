@@ -2,11 +2,9 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 	"net"
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -21,7 +19,6 @@ import (
 	"github.com/HuyDoan-2112/handle-massive-requests/internal/config"
 	"github.com/HuyDoan-2112/handle-massive-requests/internal/db"
 	"github.com/HuyDoan-2112/handle-massive-requests/internal/grpcapi"
-	"github.com/HuyDoan-2112/handle-massive-requests/internal/httpapi"
 	"github.com/HuyDoan-2112/handle-massive-requests/internal/ticket"
 )
 
@@ -39,19 +36,6 @@ func main() {
 		log.Fatalf("failed to connect to database: %v", err)
 	}
 	defer pool.Close()
-
-	// HTTP: health only.
-	httpSrv := &http.Server{
-		Addr:              fmt.Sprintf(":%s", cfg.Port),
-		Handler:           httpapi.SetupRouter(),
-		ReadHeaderTimeout: 5 * time.Second,
-	}
-	go func() {
-		log.Printf("http listening on :%s", cfg.Port)
-		if err := httpSrv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			log.Fatalf("http server: %v", err)
-		}
-	}()
 
 	// gRPC: ticket API.
 	repository := ticket.NewRepository(pool)
@@ -78,9 +62,6 @@ func main() {
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	if err := httpSrv.Shutdown(shutdownCtx); err != nil {
-		log.Printf("http shutdown: %v", err)
-	}
 	stopped := make(chan struct{})
 	go func() { grpcSrv.GracefulStop(); close(stopped) }()
 	select {

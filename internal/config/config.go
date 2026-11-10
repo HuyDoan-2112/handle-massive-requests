@@ -7,8 +7,6 @@ import (
 
 type Config struct {
 	PostgresURL string `mapstructure:"POSTGRES_URL"`
-	GinMode     string `mapstructure:"GIN_MODE"`
-	Port        string `mapstructure:"PORT"`
 	GRPCPort    string `mapstructure:"GRPC_PORT"`
 }
 
@@ -22,8 +20,6 @@ func LoadConfig() (*Config, error) {
 
 	return &Config{
 		PostgresURL: viper.GetString("POSTGRES_URL"),
-		GinMode:     viper.GetString("GIN_MODE"),
-		Port:        viper.GetString("PORT"),
 		GRPCPort:    viper.GetString("GRPC_PORT"),
 	}, nil
 }
