@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
@@ -27,12 +28,20 @@ func (r *Repository) Create(ctx context.Context, t Ticket) (Ticket, error) {
 		VALUES ($1, $2, $3, $4, $5, $6, $7)
 		RETURNING `+columns,
 		t.Name, t.DepartureLocation, t.Destination, t.PriceCents, string(t.Type), t.TimeStart, t.TimeEnd)
-	return scan(row)
+	created, err := scan(row)
+	if err != nil {
+		return Ticket{}, fmt.Errorf("create ticket: %w", err)
+	}
+	return created, nil
 }
 
 func (r *Repository) Get(ctx context.Context, id uuid.UUID) (Ticket, error) {
 	row := r.pool.QueryRow(ctx, `SELECT `+columns+` FROM tickets WHERE id = $1`, id)
-	return scan(row)
+	t, err := scan(row)
+	if err != nil {
+		return Ticket{}, fmt.Errorf("get ticket: %w", err)
+	}
+	return t, nil
 }
 
 func (r *Repository) List(ctx context.Context, f ListFilter) ([]Ticket, error) {
@@ -59,11 +68,14 @@ func (r *Repository) List(ctx context.Context, f ListFilter) ([]Ticket, error) {
 	for rows.Next() {
 		t, err := scan(rows)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("list tickets: %w", err)
 		}
 		out = append(out, t)
 	}
-	return out, rows.Err()
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("list tickets: %w", err)
+	}
+	return out, nil
 }
 
 // UpdateStatus changes status only if the current status is allowed.
@@ -78,11 +90,18 @@ func (r *Repository) UpdateStatus(ctx context.Context, id uuid.UUID, to Status) 
 	t, err := scan(row)
 	if errors.Is(err, ErrNotFound) {
 		// Distinguish "no such ticket" from "wrong current status".
-		if _, getErr := r.Get(ctx, id); getErr == nil {
+		_, getErr := r.Get(ctx, id)
+		if getErr == nil {
 			return Ticket{}, ErrInvalidTransition
 		}
+		if !errors.Is(getErr, ErrNotFound) {
+			return Ticket{}, fmt.Errorf("check ticket after status update: %w", getErr)
+		}
 	}
-	return t, err
+	if err != nil {
+		return Ticket{}, fmt.Errorf("update ticket status: %w", err)
+	}
+	return t, nil
 }
 
 func (r *Repository) Delete(ctx context.Context, id uuid.UUID) error {
@@ -117,9 +136,9 @@ func statusStrings(ss []Status) []string {
 	return out
 }
 
-func nullTime[T interface{ IsZero() bool }](v T) any {
-	if v.IsZero() {
+func nullTime(t time.Time) any {
+	if t.IsZero() {
 		return nil
 	}
-	return v
+	return t
 }
